@@ -1,0 +1,489 @@
+# 📱 Universal Tracker — Product Requirements Document (PRD v1.1)
+
+---
+
+# 1. Product Overview
+
+**Universal Tracker** is a local-first Android application that allows users to define custom trackers and log structured or semi-structured data over time, with powerful visualization and statistical analysis.
+
+It is designed as a **serious tracking tool**, not a habit or gamification app.
+
+### Core Principles
+- No accounts, no subscriptions
+- No gamification or behavioral pressure
+- Full user control over data
+- Flexible schema with structured insights
+- Fast, reliable, and offline-first
+
+---
+
+# 2. Core Value Proposition
+
+Users can:
+- Track anything (numeric, duration, text, or combinations)
+- Define structured multi-field trackers
+- Log entries quickly with precision
+- Visualize trends and statistics
+- Export and own their data completely
+
+---
+
+# 3. Product Philosophy
+
+- Users are competent; avoid hand-holding
+- Logging should be fast but deliberate
+- Data should remain interpretable and consistent
+- Insights should be visible but not intrusive
+- Flexibility is prioritized over rigid workflows
+
+---
+
+# 4. Onboarding Experience (First Launch Only)
+
+## Purpose
+- Explain the app clearly
+- Reduce confusion from flexibility
+- Teach Tracker → Entry model
+- Help create first tracker
+
+## Flow
+
+### Screen 1 — Introduction
+- Title: “Track anything”
+- Subtitle: “No rules. No pressure.”
+
+### Screen 2 — How It Works
+- Tracker → Entries → Charts visual
+
+### Screen 3 — Capabilities
+- Charts
+- Statistics
+- Multi-field tracking
+- Reminders
+
+### Screen 4 — Create First Tracker
+- Templates (optional)
+- Create from scratch
+
+## UX Requirements
+- Smooth transitions
+- Subtle animations
+- Optional sound (globally disable-able)
+
+---
+
+# 5. Data Model
+
+---
+
+## 5.1 Tracker
+
+### Core Fields
+- `id: UUID`
+- `name: String`
+- `type: ENUM (STRUCTURED, SIMPLE)`
+- `createdAt: Timestamp`
+- `updatedAt: Timestamp`
+
+### Display
+- `emoji: String`
+- `themeToken: String`
+- `tags: List<String>`
+
+### Behavior
+- `isPinned: Boolean`
+- `pinOrder: Int`
+- `reminders: List<Reminder>`
+- `archived: Boolean`
+
+---
+
+## 5.2 Tracker Fields
+
+Each tracker contains multiple fields.
+
+### Field Definition
+- `id: UUID`
+- `trackerId: UUID`
+- `name: String`
+- `type: ENUM (NUMBER, DURATION, TEXT)`
+- `required: Boolean`
+- `unit: String (optional)`
+- `allowsNumeric: Boolean (TEXT only)`
+- `defaultValue: optional`
+- `validationRules: optional`
+
+---
+
+## 5.3 Entry
+
+### Core
+- `id: UUID`
+- `trackerId: UUID`
+- `recordedAt: Timestamp`
+- `createdAt: Timestamp`
+- `updatedAt: Timestamp`
+- `notes: String`
+- `imageUris: List<String>`
+
+---
+
+## 5.4 EntryFieldValue
+
+- `id: UUID`
+- `entryId: UUID`
+- `fieldId: UUID`
+- `valueText: String`
+- `valueNumber: Double`
+- `valueDurationMs: Long`
+
+---
+
+# 6. Dashboard (Home Screen)
+
+---
+
+## Sections (Top → Bottom)
+
+### 1. Missed Trackers
+- Based on reminders
+- Clears after configurable days (default: 3)
+
+### 2. Pinned Trackers
+- Draggable ordering
+
+### 3. Actionable Trackers
+- Due reminders
+
+### 4. All Trackers
+
+### 5. Recent Activity
+
+---
+
+## Tracker Card
+
+Displays:
+- Emoji
+- Name
+- Latest value(s)
+- “Last logged: X days ago”
+- Optional trend indicator
+
+---
+
+## Interactions
+- Tap → Entry Sheet
+- Long press → Context menu
+- Drag → Reorder pinned
+
+---
+
+# 7. Trackers Screen
+
+---
+
+## Features
+- View all trackers
+- Search trackers
+- Edit / Delete / Pin
+
+## Interactions
+- Tap → Timeline
+- Swipe → Edit/Delete
+
+---
+
+# 8. Tracker Form
+
+---
+
+## Sections
+
+### Basic Info
+- Name
+- Emoji
+- Theme
+
+### Fields
+- Add/remove fields
+- Set type, unit, required
+
+### Behavior
+- Pin toggle
+- Tags
+
+### Reminders
+- Multiple times per day
+
+---
+
+# 9. Entry Sheet (Add/Edit Entry)
+
+---
+
+## Features
+- Dynamic fields
+- Required field validation
+- Optional fields collapsible
+- Notes input
+- Image attachments
+- Date/time override
+
+## Behavior
+- Repeat last entry supported
+- Auto-scroll to errors
+
+---
+
+# 10. Timeline Screen
+
+---
+
+## Features
+
+### Field Selector
+- Switch between fields
+
+### Chart
+- Interactive line chart
+- Zoom + scroll
+
+### Stats (Per Field)
+- Min
+- Max
+- Mean
+- Median
+- Latest
+- Trend
+- Rolling average
+
+### Filters
+- 1W / 1M / 3M / 6M / 1Y / ALL
+
+---
+
+## Entry List
+- All fields per entry
+- Notes preview
+- Image thumbnails
+
+---
+
+## Interactions
+- Swipe → Edit/Delete
+- Tap → Expand
+- Image → Fullscreen
+
+---
+
+# 11. Reminders
+
+---
+
+## Features
+- Multiple reminders per tracker
+- Fixed daily time
+
+## Behavior
+- No snooze
+- No skip
+- Missed entries shown on dashboard
+
+---
+
+# 12. Search
+
+---
+
+## Dashboard
+- Search trackers
+
+## Timeline
+- Search entries (value, notes, date)
+
+---
+
+# 13. Media
+
+---
+
+## Scope
+- Images only
+
+## Behavior
+- URI-based storage
+- Fullscreen preview
+
+---
+
+# 14. Export / Import
+
+---
+
+## Export
+- JSON (full)
+- CSV (per tracker)
+
+## Import
+- JSON only
+
+---
+
+# 15. Unit Transformation
+
+---
+
+## Features
+- Change unit label
+- Apply formula to existing data
+
+## Requirements
+- Preview before applying
+- Confirmation required
+
+---
+
+# 16. Deletion & Safety
+
+---
+
+## Entry
+- Delete + Undo (Snackbar)
+
+## Tracker
+- Confirm before delete
+
+## Safety
+- Recently Deleted (7 days, in settings)
+
+---
+
+# 17. Widgets
+
+---
+
+## Features
+- Select trackers
+- Show latest values
+- Tap → Open entry
+
+---
+
+# 18. Settings Screen
+
+---
+
+## Sections
+
+### General
+- Theme (Light/Dark/System)
+
+### Data
+- Export / Import
+- Clear data
+
+### Deleted Data
+- Recently Deleted
+
+### Behavior
+- Missed tracker duration
+
+---
+
+# 19. Visual System
+
+---
+
+- Material 3
+- Minimal blur
+- Theme tokens
+- Clean, readable UI
+
+---
+
+# 20. Interaction Design
+
+---
+
+## Haptics
+- Light: taps
+- Medium: save/delete
+- Success: tracker created
+
+## Motion
+- Smooth transitions
+- Minimal animations
+
+---
+
+# 21. Non-Functional Requirements
+
+---
+
+## Performance
+- Smooth with large datasets
+- Efficient charts
+
+## Reliability
+- Transaction-safe DB
+- Undo support
+
+## Privacy
+- Fully local
+- No tracking
+
+---
+
+# 22. MVP Scope
+
+---
+
+## Included
+- Multi-field trackers
+- Entry logging
+- Dashboard
+- Timeline + charts
+- Reminders
+- JSON import/export
+- Widgets
+- Unit transformation
+- Image attachments
+
+## Excluded
+- Gamification
+- Cloud sync
+- AI insights
+
+---
+
+# 23. Product Positioning
+
+---
+
+Universal Tracker is:
+
+> A flexible, local-first quantified-self tool for users who want control—not coaching.
+
+---
+
+# 24. Key Risks
+
+---
+
+- Onboarding clarity
+- Multi-field complexity
+- Feature discoverability
+
+---
+
+# 25. Future Opportunities
+
+---
+
+- Templates library
+- Advanced analytics
+- Cloud backup
+- Data integrations
+
+---
