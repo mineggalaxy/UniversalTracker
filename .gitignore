@@ -1,0 +1,48 @@
+```
+# Android
+*.apk
+*.aar
+*.ap_
+build/
+.gradle/
+local.properties
+proguard/
+
+# Gradle
+.gradle/
+**/build/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Kotlin
+*.kotlin_metadata
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.swp
+*~
+
+# Environment
+.env
+.env.local
+.env.*
+
+# IDE
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+.settings/
+nbproject/
+
+# OS
+.DS_Store
+Thumbs.db
+```

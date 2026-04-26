@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Universal Tracker</string>
+    <string name="add_tracker">Add Tracker</string>
+    <string name="edit_tracker">Edit Tracker</string>
+    <string name="delete_tracker">Delete Tracker</string>
+    <string name="add_entry">Add Entry</string>
+    <string name="edit_entry">Edit Entry</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="settings">Settings</string>
+    <string name="trackers">Trackers</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="timeline">Timeline</string>
+    <string name="export_data">Export Data</string>
+    <string name="import_data">Import Data</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="notifications">Notifications</string>
+    <string name="reminders">Reminders</string>
+</resources>
